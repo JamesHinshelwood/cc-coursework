@@ -33,12 +33,16 @@ def print_menu_options():
 
 
 def get_menu_selection(input: str) -> VoidFn:
-    first = int(input[0])
-    if len(input) > 1:
-        second = int(input[1])
-        return menu_options[first][2][second - 1][1]
-    else:
-        return menu_options[first][1]
+    try:
+        first = int(input[0])
+        if len(input) > 1:
+            second = int(input[1])
+            return menu_options[first][2][second - 1][1]
+        else:
+            return menu_options[first][1]
+    except (ValueError, IndexError):
+        print("Invalid selection")
+        return lambda: None
 
 
 if __name__ == '__main__':
