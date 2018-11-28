@@ -24,6 +24,9 @@ class ClusterDefinition:
 
 
 def update_definition(bucket: str) -> ClusterDefinition:
+    if call(["kops", "get", "cluster", "--state", bucket]) == 1: # Bucket exists, but is empty
+        return None
+
     new_cluster = ClusterDefinition()
     json = loads(check_output(["kops", "get", "group7.k8s.local", "-o", "json", "--state", bucket]))
     print(json[1]['spec']['role'])
